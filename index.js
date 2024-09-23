@@ -1,13 +1,50 @@
+import { Command } from 'commander';
+const program = new Command();
+
 import {
   listContacts,
   getContactById,
   removeContact,
   addContact,
 } from './contacts.js';
-import { contactsPath } from './contacts.js';
 
-listContacts();
-getContactById();
-removeContact();
-// console.log(addContact(name, email, phone));
-// console.log(contactsPath);
+program
+  .option('-a, --action <type>')
+  .option('-i, --id <type>')
+  .option('-n, --name <type>')
+  .option('-e, --email <type>')
+  .option('-p, --phone <type>')
+  .allowUnknownOption(true);
+
+program.parse(process.argv);
+
+const argv = program.opts();
+
+const invokeAction = async ({ action, id, name, email, phone }) => {
+  switch (action) {
+    case 'list':
+      const contacts = await listContacts();
+      console.table(contacts);
+      break;
+
+    case 'get':
+      const contactsById = await getContactById(id);
+      console.log(contactsById);
+      break;
+
+    case 'add':
+      const addNewContact = await addContact({ name, email, phone });
+      console.log(addNewContact);
+      break;
+
+    case 'remove':
+      const deleteContact = await removeContact(id);
+      console.log(deleteContact);
+      break;
+
+    default:
+      console.warn('\x1B[31m Unknown action type!');
+  }
+};
+
+invokeAction(argv);

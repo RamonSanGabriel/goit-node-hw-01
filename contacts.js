@@ -1,11 +1,9 @@
 import fs from 'fs/promises';
-// const fs = require('fs/promises');
+
 import path from 'path';
-// import { nanoid } from 'nanoid';
+import { nanoid } from 'nanoid';
 
 export const contactsPath = path.join('db', 'contacts.json');
-
-// module.exports = { contactsPath };
 
 const listContacts = async () => {
   try {
@@ -19,7 +17,7 @@ const listContacts = async () => {
 const getContactById = async (contactId) => {
   try {
     const contacts = await listContacts();
-    const result = contacts.find((contacts) => contact.id === contactId);
+    const result = contacts.find((contact) => contact.id === contactId);
     return result || null;
   } catch (error) {
     console.error('Error reading the contacts by id!', error.message);
