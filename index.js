@@ -10,10 +10,10 @@ import {
 
 program
   .option('-a, --action <type>')
-  .option('-i, --id <type>')
-  .option('-n, --name <type>')
-  .option('-e, --email <type>')
-  .option('-p, --phone <type>')
+  .option('-i, --id <id>')
+  .option('-n, --name <name>')
+  .option('-e, --email <email>')
+  .option('-p, --phone <phone>')
   .allowUnknownOption(true);
 
 program.parse(process.argv);
